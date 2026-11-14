@@ -45,16 +45,25 @@ $('clearChat').onclick=()=>{$('messages').innerHTML=''};
 $('clearHistory').onclick=()=>{localStorage.removeItem(historyKey);renderHistory()};
 $('proBtn').onclick=()=>alert(lang==='zh'?'PRO 尚未开放购买。':'PRO is not available yet.');
 renderLang();updateMeter();
-  // Test connection to Nova AI backend
 async function testBackend() {
+  const note = document.createElement("p");
+  note.textContent = "Connecting to Nova AI...";
+  note.style.cssText = "text-align:center;color:#c084fc;padding:10px;";
+  document.querySelector(".hero").appendChild(note);
+
   try {
     const response = await fetch(
       "https://nova-ai-backend.ongjunhow31.workers.dev/health"
     );
+
     const data = await response.json();
-    console.log("Nova AI backend:", data);
+
+    note.textContent = response.ok
+      ? "✅ Nova AI Backend Connected!"
+      : "❌ Connection failed";
+
   } catch (error) {
-    console.error("Backend connection failed:", error);
+    note.textContent = "❌ Cannot connect to Nova AI backend.";
   }
 }
 
