@@ -45,4 +45,18 @@ $('clearChat').onclick=()=>{$('messages').innerHTML=''};
 $('clearHistory').onclick=()=>{localStorage.removeItem(historyKey);renderHistory()};
 $('proBtn').onclick=()=>alert(lang==='zh'?'PRO 尚未开放购买。':'PRO is not available yet.');
 renderLang();updateMeter();
+  // Test connection to Nova AI backend
+async function testBackend() {
+  try {
+    const response = await fetch(
+      "https://nova-ai-backend.ongjunhow31.workers.dev/health"
+    );
+    const data = await response.json();
+    console.log("Nova AI backend:", data);
+  } catch (error) {
+    console.error("Backend connection failed:", error);
+  }
+}
+
+testBackend();
 </script></body></html>
